@@ -1030,5 +1030,458 @@ The interface should communicate these states appropriately.
 
 An empty state must not cause broken layouts or confusing blank areas.
 
+35. Performance Architecture
+The storefront is designed primarily for mobile users.
+The architecture should therefore minimize unnecessary client-side work.
+Priorities include:
+optimized images
+reasonable page weight
+minimal unnecessary dependencies
+efficient data retrieval
+limited unnecessary JavaScript
+simple interactions
+appropriate loading behavior
+The MVP does not require premature performance infrastructure.
+Performance improvements should be evidence-driven.
+36. Security Architecture
+Security boundaries must exist at multiple levels.
+User Interface
+      ↓
+Authentication
+      ↓
+Authorization
+      ↓
+Data Access
+      ↓
+Database / Storage Policies
+Security must not depend solely on hiding interface elements.
+The architecture must protect:
+admin functionality
+private analytics
+authentication information
+private configuration
+secrets
+protected data
+Public data must be intentionally exposed.
+37. Secrets and Environment Configuration
+Sensitive values must not be committed to GitHub.
+Examples include:
+private credentials
+secret keys
+service credentials
+deployment secrets
+other sensitive configuration
+Environment configuration must be used where appropriate.
+Publicly safe configuration and private secrets must be deliberately distinguished.
+AI coding agents must not place secrets directly into source files.
+38. GitHub Architecture
+GitHub is the permanent source of truth.
+Conceptually:
+Project Files
+     ↓
+GitHub Repository
+     ↓
+Version History
+The repository contains:
+source code
+product documentation
+architecture documentation
+database documentation
+project rules
+safe configuration
+project history
+AI development environments are consumers of the repository, not owners of it.
+39. Development Tool Portability
+The application must remain portable between development environments.
+For example:
+Kiro
+  ↓
+GitHub
+  ↓
+Windsurf
+or:
+Windsurf
+  ↓
+GitHub
+  ↓
+Kiro
+Changing AI coding tools must not require rebuilding the application from the beginning.
+This requires:
+source code in GitHub
+documentation in GitHub
+architecture decisions documented
+database structure documented
+project rules documented
+important configuration documented
+40. Kiro Architecture Role
+Kiro is the primary AI development environment.
+Kiro is responsible for implementing approved requirements and technical plans.
+Kiro must use the repository documentation as project context.
+Kiro must not:
+silently change the approved stack
+silently expand MVP scope
+invent unsupported business requirements
+replace the architecture merely for convenience
+overwrite established decisions without review
+Kiro may propose changes.
+The project owner and project documentation determine whether those changes are accepted.
+41. Windsurf Architecture Role
+Windsurf is the secondary AI development environment.
+It exists to provide:
+development continuity
+an alternative AI coding environment
+a second implementation perspective
+a fallback when Kiro usage is unavailable or inconvenient
+Windsurf must work from the existing GitHub project.
+It must not treat the project as a new application merely because it is being opened in a different development environment.
+42. v0 Architecture Role
+v0 is primarily a UI/design exploration tool.
+It may assist with:
+interface concepts
+storefront layouts
+admin layouts
+responsive design ideas
+component concepts
+The resulting ideas must be evaluated against:
+PRODUCT_SPEC.md
+PROJECT_RULES.md
+ARCHITECTURE.md
+v0 does not become the project's permanent backend, database, or source of truth.
+43. GitHub Codespaces Role
+GitHub Codespaces provides a cloud development environment connected to the repository.
+Conceptually:
+GitHub Repository
+       ↓
+GitHub Codespaces
+       ↓
+Development Environment
+       ↓
+Project
+Codespaces is:
+a development workspace
+a portable environment
+an alternative way to work with the repository
+Codespaces is not:
+the production host
+the application's database
+the project's source of truth
+44. Render Architecture Role
+Render is the production hosting platform for the main application.
+Expected production relationship:
+GitHub
+   ↓
+Render
+   ↓
+Live Next.js Application
+   ↓
+Supabase
+Render is responsible for making the application available to users on the internet.
+Production deployment configuration must be handled securely.
+The exact deployment configuration may evolve as implementation requires, but production hosting remains within the approved Render role unless deliberately changed.
+45. Supabase Production Role
+The production application depends on Supabase for the approved backend services.
+Conceptually:
+Render-hosted Application
+          │
+          ├──────────────► Supabase Database
+          │
+          ├──────────────► Supabase Auth
+          │
+          └──────────────► Supabase Storage
+The application must use secure and appropriate access patterns.
+Database and storage permissions must be deliberately defined.
+46. Hostinger Horizons Role
+Hostinger Horizons is not part of the required core production pipeline for the MVP.
+Its approved role is:
+rapid prototypes
+experiments
+small standalone websites
+quick client projects
+demonstrations
+testing ideas
+Horizons must not automatically become the architecture of the main Business Storefront application.
+If a prototype created in Horizons proves valuable, the idea must be deliberately evaluated and, if appropriate, reimplemented within the approved production architecture.
+The main Business Storefront production application remains:
+GitHub
+   ↓
+Render
+   ↓
+Supabase
+Horizons is an additional development/business tool, not a replacement for that production architecture.
+47. Production Architecture
+The intended MVP production architecture is:
+                    INTERNET
+                       │
+                       ▼
+               ┌───────────────┐
+               │    Render     │
+               │ Next.js App   │
+               └───────┬───────┘
+                       │
+          ┌────────────┼────────────┐
+          │            │            │
+          ▼            ▼            ▼
+      Database       Auth        Storage
+          │            │            │
+          └────────────┼────────────┘
+                       ▼
+                   Supabase
+Customers interact primarily with the application hosted on Render.
+The application uses Supabase for the approved backend services.
+48. Development-to-Production Flow
+The intended development flow is:
+Plan
+  ↓
+Implement
+  ↓
+Inspect
+  ↓
+Test
+  ↓
+Review
+  ↓
+Commit
+  ↓
+GitHub
+  ↓
+Deploy
+  ↓
+Production
+AI development tools may be used during implementation.
+GitHub remains the permanent project record.
+Production deployment must occur only after the relevant changes have been reviewed and tested.
+49. Change Flow
+For a normal feature or bug fix:
+Problem / Requirement
+        ↓
+Review against Product Spec
+        ↓
+Determine technical impact
+        ↓
+Implement
+        ↓
+Inspect
+        ↓
+Test
+        ↓
+Security Review where relevant
+        ↓
+Commit
+        ↓
+Deploy when approved
+A change that affects architecture must also update the relevant documentation.
+50. Database Change Boundary
+Database changes require additional caution.
+A database change may affect:
+existing businesses
+existing products
+analytics
+public storefronts
+authentication
+storage references
+security policies
+Therefore, database changes must not be treated as ordinary UI changes.
+Before a structural database change is implemented, its effect on existing data and application behavior must be considered.
+The final database design is documented in:
+DATABASE.md
+51. Public URL Stability
+Public URLs are important business assets.
+A business may distribute its URL through:
+WhatsApp
+Instagram
+Facebook
+TikTok
+QR codes
+printed materials
+business cards
+Therefore, changing a business slug can have real-world consequences.
+The architecture must treat public URLs as stable identifiers.
+If slug changes are introduced later, they must be deliberately designed to avoid unnecessarily breaking previously distributed links.
+52. Data Isolation
+Businesses must remain isolated from one another.
+Conceptually:
+Business A
+   │
+   ├── Product A1
+   └── Product A2
 
+Business B
+   │
+   ├── Product B1
+   └── Product B2
+Business A must never accidentally display:
+Product B1
+Similarly, public requests for Business A must never return Business B's storefront.
+This is both a correctness and security requirement.
+53. Failure Isolation
+A failure in a supporting feature should not unnecessarily destroy the primary storefront experience.
+Examples:
+Analytics failure
+      ↓
+Storefront should remain usable
+Optional social link failure
+      ↓
+Other storefront functions should remain usable
+One image failure
+      ↓
+The entire storefront should not become unusable
+Critical failures must still be surfaced appropriately to the admin and handled according to the affected operation.
+54. Architecture and Scope Protection
+The architecture must not be expanded merely because future features are technically possible.
+The following are outside the MVP architecture:
+customer accounts
+business-owner accounts
+staff accounts
+payment processing
+e-commerce checkout
+inventory systems
+POS
+CRM
+delivery tracking
+WhatsApp Business API
+WhatsApp automation
+AI chatbot
+automated order processing
+subscriptions
+advanced analytics
+custom domains
+advanced SEO management
+automated business onboarding
+multi-admin permissions
+Future features must be introduced through deliberate architectural review.
+55. Future Expansion Principle
+The MVP architecture should be clean enough to support future growth.
+However:
+Future flexibility must not become present-day complexity.
+The system should avoid building unused infrastructure solely because a future feature might eventually exist.
+Future features should be introduced when there is evidence that they are valuable.
+When a future feature is proposed, evaluate:
+Product value
+User demand
+Security impact
+Database impact
+Architecture impact
+Operational cost
+Maintenance cost
+Migration requirements
+Compatibility with existing businesses
+Whether it belongs in the current product
+56. Architecture Decision Authority
+The following hierarchy applies:
+Product Owner
+      ↓
+Approved Product Specification
+      ↓
+Project Rules
+      ↓
+Architecture
+      ↓
+Database Design
+      ↓
+Implementation
+AI coding agents are implementation assistants.
+They do not independently redefine product requirements or architecture.
+If an implementation conflict is discovered:
+STOP
+  ↓
+Identify Conflict
+  ↓
+Explain Impact
+  ↓
+Review
+  ↓
+Decide
+  ↓
+Update Documentation if Approved
+  ↓
+Continue
+57. Documentation Synchronization
+The following documents must remain consistent:
+README.md
+PRODUCT_SPEC.md
+PROJECT_RULES.md
+ARCHITECTURE.md
+DATABASE.md
+If a major architectural decision changes, the relevant documentation must be updated.
+Documentation should not intentionally describe an architecture that the actual application no longer follows.
+58. Architecture Validation
+Before considering the architecture complete, verify that:
+the public storefront has a defined path from URL to data
+the admin has a protected path to management functionality
+public and private information are separated
+businesses and products are correctly associated
+publication states are supported
+image storage has a defined responsibility
+WhatsApp ordering has a defined boundary
+analytics have a defined flow
+QR codes point to storefront URLs
+production hosting has a defined responsibility
+GitHub remains the source of truth
+Kiro and Windsurf remain interchangeable development environments
+Supabase remains responsible for approved backend services
+the architecture does not require MVP-excluded features
+security boundaries are explicitly recognized
+database details remain delegated to DATABASE.md
+59. Architecture Definition of Done
+The architecture is considered approved for MVP implementation when:
+The application boundary is clear.
+The public storefront boundary is clear.
+The admin boundary is clear.
+Authentication and authorization responsibilities are clear.
+Supabase responsibilities are clear.
+Image storage responsibilities are clear.
+WhatsApp responsibilities are clear.
+Analytics responsibilities are clear.
+QR code responsibilities are clear.
+Production hosting responsibilities are clear.
+GitHub is established as the source of truth.
+Kiro and Windsurf can work from the same repository.
+Hostinger Horizons has a separate, non-critical role.
+MVP scope remains protected.
+Security boundaries are explicitly defined.
+The architecture does not require unnecessary infrastructure.
+Database-specific implementation decisions are reserved for DATABASE.md.
+60. Final Architecture Principle
+The Business Storefront MVP follows this architectural principle:
+Keep the production system simple, separate public and private responsibilities, protect the data, keep the project portable, and build only the infrastructure the MVP genuinely needs.
+The approved production relationship is:
+                     BUSINESS STOREFRONT MVP
+
+                           USERS
+                             │
+                ┌────────────┴────────────┐
+                │                         │
+             Customer                   Admin
+                │                         │
+                ▼                         ▼
+        Public Storefront            Admin Area
+                │                         │
+                └────────────┬────────────┘
+                             │
+                             ▼
+                       Next.js App
+                             │
+                             ▼
+                         Supabase
+                    ┌────────┼────────┐
+                    │        │        │
+                    ▼        ▼        ▼
+                Database    Auth   Storage
+                             │
+                             │
+                    Production Hosting
+                             │
+                             ▼
+                           Render
+
+                 GitHub = Source of Truth
+
+       Kiro = Primary Builder
+       Windsurf = Secondary Builder
+       v0 = UI/Design Assistance
+       Codespaces = Cloud Development Environment
+       Horizons = Rapid Prototyping / Independent Projects
+       ChatGPT = Architecture / Product Intelligence
+This architecture supports the approved Business Storefront MVP without unnecessarily expanding its scope.
+End of Architecture Specification v1
 --
