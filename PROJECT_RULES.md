@@ -6,11 +6,10 @@ PROJECT_RULES.md answers “How must AI agents and developers behave while build
 
 The document below is therefore deliberately strict, but it does not redefine the product. It references PRODUCT_SPEC.md as the product authority and establishes safeguards against uncontrolled AI changes.
 
-Create a new file in the repository named exactly:
+
 
 PROJECT_RULES.md
 
-Then paste everything inside the single block below into that file.
 
 # Business Storefront — Project Rules
 
