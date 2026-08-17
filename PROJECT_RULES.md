@@ -1,5 +1,4 @@
 # Business Storefront — Project Rules
-# Business Storefront — Project Rules
 
 **Project:** Business Storefront  
 **Document:** Project Rules  
