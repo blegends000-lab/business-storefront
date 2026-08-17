@@ -90,6 +90,7 @@ The goal is to make the approved MVP reliable, understandable, secure, and usefu
 
 ---
 
+ ```markdown
 # 4. No Uncontrolled Building
 
 AI agents must not blindly generate the entire application in one uncontrolled operation.
@@ -116,10 +117,7 @@ REVIEW
 COMMIT
   ↓
 NEXT TASK
-
 Each meaningful feature should be implemented and verified before moving to the next major feature.
-
-
 ---
 
 5. Do Not Invent Product Requirements
