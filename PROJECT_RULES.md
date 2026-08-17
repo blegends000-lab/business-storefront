@@ -1362,4 +1362,29 @@ No AI agent may silently reinterpret these rules.
 No AI agent may silently expand the MVP.
 No AI agent may knowingly introduce avoidable security or data-integrity weaknesses.
 The project owner remains the final authority for intentional product and scope decisions.
+# Tool Independence
+
+Development environments and AI coding tools are replaceable.
+
+The application must not depend on Kiro, Windsurf, v0, GitHub Codespaces, ChatGPT, Hostinger Horizons, or any other development tool at runtime.
+
+GitHub is the permanent source of truth for the project.
+
+The application must remain portable between supported development environments.
+
+Changing development tools must not require rebuilding the application from scratch.
+
+A development tool may be preferred for a particular task, but no single AI coding tool is a required dependency of the product.
+
+If a preferred development tool becomes unavailable, reaches a usage limit, becomes unsuitable, or is no longer used, development must be able to continue from the GitHub repository using another suitable environment.
+
+Development-tool changes must not silently change:
+
+- Product requirements
+- Application architecture
+- Database design
+- Security model
+- Production infrastructure
+- Public URLs
+- Existing application behavior
 End of Project Rules v1
